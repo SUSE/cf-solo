@@ -1,0 +1,134 @@
+---
+roles:
+- name: cf-solo
+  scripts:
+  - scripts/prevent_apparmor_disable.sh
+  - scripts/cleanup-garden-graph.sh
+  - scripts/patches/fix_blobstore_prestart.sh
+  - scripts/patches/fix_buildpack_install.sh
+  - scripts/patches/router_internal_host_names.sh
+  - scripts/perform_nfs_test.sh
+  - scripts/patches/fix_uaa_hostnames_in_uaa_yml.sh
+  jobs:
+  - name: nats
+    release_name: cf
+  - name: consul_agent
+    release_name: cf
+  - name: metron_agent
+    release_name: cf
+  - name: nats_stream_forwarder
+    release_name: cf
+  - name: postgres
+    release_name: cf
+  - name: blobstore
+    release_name: cf
+  - name: uaa
+    release_name: cf
+  - name: loggregator_trafficcontroller
+    release_name: cf
+  - name: bbs
+    release_name: diego
+  - name: gorouter
+    release_name: routing
+  - name: route_registrar
+    release_name: routing
+  - name: cloud_controller_ng
+    release_name: cf
+  - name: statsd-injector
+    release_name: cf
+  - name: go-buildpack
+    release_name: cf
+  - name: binary-buildpack
+    release_name: cf
+  - name: nodejs-buildpack
+    release_name: cf
+  - name: ruby-buildpack
+    release_name: cf
+  - name: php-buildpack
+    release_name: cf
+  - name: python-buildpack
+    release_name: cf
+  - name: staticfile-buildpack
+    release_name: cf
+  - name: java-buildpack
+    release_name: cf
+  - name: cloud_controller_worker
+    release_name: cf
+  - name: cloud_controller_clock
+    release_name: cf
+  - name: doppler
+    release_name: cf
+  - name: syslog_drain_binder
+    release_name: cf
+  - name: etcd
+    release_name: cf
+  - name: etcd_metrics_server
+    release_name: cf
+  - name: auctioneer
+    release_name: diego
+  - name: stager
+    release_name: cf
+  - name: nsync
+    release_name: cf
+  - name: tps
+    release_name: cf
+  - name: cc_uploader
+    release_name: cf
+  - name: route_emitter
+    release_name: diego
+  - name: ssh_proxy
+    release_name: diego
+  - name: file_server
+    release_name: diego
+  - name: rep
+    release_name: diego
+  - name: garden
+    release_name: garden-linux
+  - name: cflinuxfs2-rootfs-setup
+    release_name: cflinuxfs2-rootfs
+  configuration:
+    templates:
+      properties.consul.agent.mode: '"server"'
+      properties.route_registrar.routes: '[{"name":"api","port":9022,"tags":{"component":"CloudController"},"uris":["api.((DOMAIN))"],"registration_interval":"10s"},
+
+{"name":"uaa","port":16060,"tags":{"component":"uaa"},"uris":["uaa.((DOMAIN))","*.uaa.((DOMAIN))","login.((DOMAIN))","*.login.((DOMAIN))"],"registration_interval":"10s"},{"name":"blobstore","port":16063,"tags":{"component":"blobstore"},"uris":["blobstore.((DOMAIN))"],"registration_interval":"10s"},{"name":"loggregator_trafficcontroller","port":18080,"uris":["loggregator.((DOMAIN))"],"registration_interval":"10s"},{"name":"loggregator","port":18081,"uris":["doppler.((DOMAIN))"],"registration_interval":"10s"}
+      ]'
+configuration:
+  templates:
+    index: '0'
+    networks.default.dns_record_name: '"((DNS_RECORD_NAME))"'
+    networks.default.ip: '"((IP_ADDRESS))"'
+
+    properties.hcf.monit.port: '2812'
+    properties.hcf.monit.user: 'admin'
+    properties.hcf.monit.password: 'monit'
+
+    properties.app_domains: '["((DOMAIN))"]'
+    properties.domain: '"((DOMAIN))"'
+    properties.routing_api.system_domain: '"((DOMAIN))"'
+    properties.system_domain: '"((DOMAIN))"'
+    properties.cc.buildpacks.webdav_config.public_endpoint: '"https://blobstore.((DOMAIN))"'
+    properties.cc.droplets.webdav_config.public_endpoint: '"https://blobstore.((DOMAIN))"'
+    properties.cc.packages.webdav_config.public_endpoint: '"https://blobstore.((DOMAIN))"'
+    properties.cc.resource_pool.webdav_config.public_endpoint: '"https://blobstore.((DOMAIN))"'
+    properties.uaa.url: '"https://uaa.((DOMAIN))"'
+    properties.uaa.token_endpoint: '"uaa.((DOMAIN))"'
+    properties.uaa.zones.internal.hostnames: '["plumbing.cf","uaa.((DOMAIN))"]'
+
+    # Force this property in, because not all BOSH jobs that use it reference it
+    # in their spec
+    properties.uaa.ssl.port: 8443
+    properties.etcd.cluster: null
+    properties.login.url: '"https://login.((DOMAIN))"'
+
+    properties.cc.default_app_disk_in_mb: '"((DEFAULT_APP_DISK_IN_MB))"'
+    properties.cc.default_app_memory: '"((DEFAULT_APP_MEMORY))"'
+    properties.diego.executor.memory_capacity_mb: '((DIEGO_CELL_MEMORY_CAPACITY_MB))'
+
+    properties.garden.dns_servers: '["((GARDEN_LINUX_DNS_SERVER))"]'
+    properties.garden.http_proxy: '"((HTTP_PROXY))"'
+    properties.garden.https_proxy: '"((HTTPS_PROXY))"'
+    properties.garden.network_pool: '"((DIEGO_CELL_SUBNET))"'
+    properties.garden.no_proxy: '"((NO_PROXY))"'
+    properties.router.dns_health_check_host: '"((DNS_HEALTH_CHECK_HOST))"'
+    properties.uaa.scim.users: '["admin|((CLUSTER_ADMIN_PASSWORD))|scim.write,scim.read,openid,cloud_controller.admin,clients.read,clients.write,doppler.firehose,routing.router_groups.read"]'

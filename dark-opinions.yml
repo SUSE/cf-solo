@@ -1,0 +1,6 @@
+---
+properties:
+  domain: example.com
+  uaa:
+    scim:
+      users: []
