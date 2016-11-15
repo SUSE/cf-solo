@@ -4,5 +4,12 @@ sudo: required
 services:
   - docker
 
+before_script:
+  - wget https://concourse-hpe.s3.amazonaws.com/fissile-2.0.2%2B71.g608c02c.develop-linux.amd64.tgz -O /tmp/fissile.tgz
+  - mkdir -p fissile
+  - cd fissile
+  - tar -xvf /tmp/fissile.tgz
+  - export PATH=$PATH:$PWD
+
 script:
   - make
