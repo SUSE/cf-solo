@@ -4,6 +4,7 @@ GIT_ROOT:=$(shell git rev-parse --show-toplevel)
 
 tools:
 	docker pull ubuntu:14.04 && \
+	mkdir -p ${GIT_ROOT}/output/tools/ && \
 	curl https://concourse-hpe.s3.amazonaws.com/configgin-1.1.0%2B4.g999ac54.develop-linux-amd64.tgz -o ${GIT_ROOT}/output/tools/configgin.tgz
 
 layers:
