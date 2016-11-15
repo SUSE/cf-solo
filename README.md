@@ -15,10 +15,16 @@ bash <(curl -s https://raw.githubusercontent.com/hpcloud/cf-solo/master/run-cf-s
 
 ## Building
 
-You have to build this on a Linux machine. Has only been tested on Ubuntu 14.04
-and 16.04.
+You have to build this on a Linux machine and you need a working [`direnv`](http://direnv.net/)
+setup. Has only been tested on Ubuntu 14.04 and 16.04.
 Make sure you have `fissile` in your path. You can build it yourself from [source](https://github.com/hpcloud/fissile)
 or grab a binary from [here](https://concourse-hpe.s3.amazonaws.com/fissile-2.0.2%2B71.g608c02c.develop-linux.amd64.tgz).
+
+Make sure you initialize submodules by running the following:
+```
+git submodule sync --recursive
+git submodule update --init  --recursive
+```
 
 ### TL;DR
 
