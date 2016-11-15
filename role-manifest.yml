@@ -86,13 +86,6 @@ roles:
     release_name: garden-linux
   - name: cflinuxfs2-rootfs-setup
     release_name: cflinuxfs2-rootfs
-  configuration:
-    templates:
-      properties.consul.agent.mode: '"server"'
-      properties.route_registrar.routes: '[{"name":"api","port":9022,"tags":{"component":"CloudController"},"uris":["api.((DOMAIN))"],"registration_interval":"10s"},
-
-{"name":"uaa","port":16060,"tags":{"component":"uaa"},"uris":["uaa.((DOMAIN))","*.uaa.((DOMAIN))","login.((DOMAIN))","*.login.((DOMAIN))"],"registration_interval":"10s"},{"name":"blobstore","port":16063,"tags":{"component":"blobstore"},"uris":["blobstore.((DOMAIN))"],"registration_interval":"10s"},{"name":"loggregator_trafficcontroller","port":18080,"uris":["loggregator.((DOMAIN))"],"registration_interval":"10s"},{"name":"loggregator","port":18081,"uris":["doppler.((DOMAIN))"],"registration_interval":"10s"}
-      ]'
 configuration:
   templates:
     index: '0'
@@ -114,6 +107,9 @@ configuration:
     properties.uaa.url: '"https://uaa.((DOMAIN))"'
     properties.uaa.token_endpoint: '"uaa.((DOMAIN))"'
     properties.uaa.zones.internal.hostnames: '["plumbing.cf","uaa.((DOMAIN))"]'
+
+    properties.consul.agent.mode: '"server"'
+    properties.route_registrar.routes: '[{"name":"api","port":9022,"tags":{"component":"CloudController"},"uris":["api.((DOMAIN))"],"registration_interval":"10s"},{"name":"uaa","port":16060,"tags":{"component":"uaa"},"uris":["uaa.((DOMAIN))","*.uaa.((DOMAIN))","login.((DOMAIN))","*.login.((DOMAIN))"],"registration_interval":"10s"},{"name":"blobstore","port":16063,"tags":{"component":"blobstore"},"uris":["blobstore.((DOMAIN))"],"registration_interval":"10s"},{"name":"loggregator_trafficcontroller","port":18080,"uris":["loggregator.((DOMAIN))"],"registration_interval":"10s"},{"name":"loggregator","port":18081,"uris":["doppler.((DOMAIN))"],"registration_interval":"10s"}]'
 
     # Force this property in, because not all BOSH jobs that use it reference it
     # in their spec
