@@ -1,4 +1,5 @@
 # cf-solo
+[![Build Status](https://travis-ci.org/hpcloud/cf-solo.svg?branch=master)](https://travis-ci.org/hpcloud/cf-solo)
 
 ## Running
 
