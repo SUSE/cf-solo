@@ -5,4 +5,4 @@ services:
   - docker
 
 script:
-  - make releases tools layers compile build
+  - make

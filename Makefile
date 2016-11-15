@@ -2,23 +2,26 @@
 
 GIT_ROOT:=$(shell git rev-parse --show-toplevel)
 
-tools:
-	docker pull ubuntu:14.04 && \
-	mkdir -p ${GIT_ROOT}/output/tools/ && \
-	curl https://concourse-hpe.s3.amazonaws.com/configgin-1.1.0%2B4.g999ac54.develop-linux-amd64.tgz -o ${GIT_ROOT}/output/tools/configgin.tgz
+all: releases tools layers compile build
+
+tools: ${GIT_ROOT}/output/tools/configgin.tgz
+	docker pull ubuntu:14.04
+
+${GIT_ROOT}/output/tools/configgin.tgz:
+	mkdir -p $(dir $@)
+	curl https://concourse-hpe.s3.amazonaws.com/configgin-1.1.0%2B4.g999ac54.develop-linux-amd64.tgz -o $@
 
 layers:
-	fissile build layer compilation && \
+	fissile build layer compilation
 	fissile build layer stemcell
 
 compile:
 	fissile build packages
 
 build:
-	fissile build images && \
-	docker tag $(shell fissile show image) fissile-cf-solo:latest && \
-	cd ${GIT_ROOT}/add-ons && \
-	docker build -t cfsolo/cfsolo .
+	fissile build images
+	docker tag $(shell fissile show image) fissile-cf-solo:latest
+	docker build -t cfsolo/cfsolo ${GIT_ROOT}/add-ons
 
 ########## BOSH RELEASE TARGETS ##########
 
