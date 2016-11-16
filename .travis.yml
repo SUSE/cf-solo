@@ -18,5 +18,6 @@ before_script:
   - export PATH=$PATH:$DIRENV_PATH
 
 script:
-  - direnv allow
-  - make
+  - eval "$(direnv hook bash)"
+  - direnv allow .
+  - bash -l -c "make"
