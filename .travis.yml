@@ -5,10 +5,18 @@ services:
   - docker
 
 before_script:
+  # Install fissile
   - wget https://concourse-hpe.s3.amazonaws.com/fissile-2.0.2%2B71.g608c02c.develop-linux.amd64.tgz -O /tmp/fissile.tgz
   - mkdir -p /tmp/fissile
   - tar -xvf /tmp/fissile.tgz -C /tmp/fissile
   - export PATH=$PATH:/tmp/fissile
+  # Install direnv
+  - export DIRENV_PATH=/tmp/direnv/
+  - mkdir $DIRENV_PATH
+  - wget https://github.com/direnv/direnv/releases/download/v2.9.0/direnv.linux-amd64 -O $DIRENV_PATH/direnv
+  - chmod +x $DIRENV_PATH/direnv
+  - export PATH=$PATH:$DIRENV_PATH
 
 script:
+  - direnv allow
   - make
