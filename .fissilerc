@@ -1,0 +1,31 @@
+GIT_ROOT=${GIT_ROOT:-$(git rev-parse --show-toplevel)}
+
+# The Docker repository name used for images
+export FISSILE_REPOSITORY=fissile
+
+# This is a comma separated list of paths to the local repositories
+# of all the releases
+export FISSILE_RELEASE="src/cf-release,src/diego-release,src/garden-linux-release,src/cflinuxfs2-rootfs-release,src/routing-release"
+
+# Path to a role manifest
+export FISSILE_ROLE_MANIFEST="${GIT_ROOT}/role-manifest.yml}"
+
+# Path to a BOSH deployment manifest that contains light opinions
+export FISSILE_LIGHT_OPINIONS="${GIT_ROOT}/opinions.yml"
+
+# Path to a BOSH deployment manifest that contains dark opinions
+export FISSILE_DARK_OPINIONS="${GIT_ROOT}/dark-opinions.yml}"
+
+# Path to a location where all fissile output is stored
+export FISSILE_WORK_DIR="${GIT_ROOT}/output/fissile"
+
+# This is the location of the local BOSH cache
+# You shouldn't need to override this
+# This will be ~/.bosh/cache in vagrant
+export FISSILE_CACHE_DIR="${HOME}/.bosh/cache"
+
+# Path to a configgin release tarball
+export FISSILE_CONFIGGIN="${GIT_ROOT}/output/tools/configgin.tgz"
+
+# This is the configuration base prefix
+export FISSILE_CONFIG_PREFIX=cfsolo
