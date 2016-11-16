@@ -8,13 +8,13 @@ export FISSILE_REPOSITORY=fissile
 export FISSILE_RELEASE="src/cf-release,src/diego-release,src/garden-linux-release,src/cflinuxfs2-rootfs-release,src/routing-release"
 
 # Path to a role manifest
-export FISSILE_ROLE_MANIFEST="${GIT_ROOT}/role-manifest.yml}"
+export FISSILE_ROLE_MANIFEST="${GIT_ROOT}/role-manifest.yml"
 
 # Path to a BOSH deployment manifest that contains light opinions
 export FISSILE_LIGHT_OPINIONS="${GIT_ROOT}/opinions.yml"
 
 # Path to a BOSH deployment manifest that contains dark opinions
-export FISSILE_DARK_OPINIONS="${GIT_ROOT}/dark-opinions.yml}"
+export FISSILE_DARK_OPINIONS="${GIT_ROOT}/dark-opinions.yml"
 
 # Path to a location where all fissile output is stored
 export FISSILE_WORK_DIR="${GIT_ROOT}/output/fissile"
