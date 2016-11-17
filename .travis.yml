@@ -1,6 +1,11 @@
 ---
 sudo: required
 
+cache:
+  directories:
+  - $HOME/.bosh/cache
+  - output/fissile
+
 services:
   - docker
 
