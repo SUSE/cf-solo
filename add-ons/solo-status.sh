@@ -51,6 +51,17 @@ else
   uaa_message="${red}OFFLINE${reset}"
 fi
 
+if [[ "$CF_SOLO_OS" == "darwin"* ]]; then
+  echo ''
+  echo ''
+  echo -e "${yellow}Looks like you're using a mac. In order to interact with cf-solo, or the"
+  echo -e "apps that you deploy there, cf-solo uses a proxy (127.0.0.1:3128). So"
+  echo -e "remember to export the following, and configure your browser accordingly.${reset}"
+  echo ''
+  echo -e "${cyan}export http_proxy=localhost:3128${reset}"
+  echo -e "${cyan}export https_proxy=%{http_proxy}${reset}"
+fi
+
 echo ''
 echo ''
 
