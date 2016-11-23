@@ -4,7 +4,12 @@ docker network create --subnet 192.168.240.0/24 cf
 docker pull cfsolo/cfsolo
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  docker run -d -p 3128:3128 --net cf --ip 192.168.240.4 \
+  docker rm -f cfsolo-proxy > /dev/null 2>&1
+
+  docker run \
+    --name cfsolo-proxy \
+    -d -p 3128:3128 \
+    --net cf --ip 192.168.240.4 \
     minimum2scp/squid
 fi
 

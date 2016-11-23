@@ -3,23 +3,21 @@
 
 ## Running
 
-You can only run this on a Linux machine right now. It will start fine on Docker
-for Mac, but because of [some network problems](https://docs.docker.com/docker-for-mac/networking/#/per-container-ip-addressing-is-not-possible)
-you won't be able to target the API or reach your apps. We'll implement a
-workaround soon.
-
-To run on Linux:
+You can run this on a Linux or a Mac right now.
+On a Mac, make sure to read the instructions on your screen about setting your proxy.
 
 ```
 bash <(curl -s https://raw.githubusercontent.com/hpcloud/cf-solo/master/run-cf-solo.sh)
 ```
 
+The need for a proxy on a mac exists because of [some network problems](https://docs.docker.com/docker-for-mac/networking/#/per-container-ip-addressing-is-not-possible).
+
 ## Building
 
 You have to build this on a Linux machine and you need to source `.fissilerc`.
-Has only been tested on Ubuntu 14.04 and 16.04.
+Has been tested on Ubuntu 14.04, 16.04 and OSX.
 Make sure you have `fissile` in your path. You can build it yourself from [source](https://github.com/hpcloud/fissile)
-or grab a binary from [here](https://concourse-hpe.s3.amazonaws.com/fissile-2.0.2%2B71.g608c02c.develop-linux.amd64.tgz).
+or grab a binary from [here](https://concourse-hpe.s3.amazonaws.com/fissile-3.0.1%2b4.gd899624.linux-amd64.tgz).
 
 Make sure you initialize submodules by running the following:
 ```

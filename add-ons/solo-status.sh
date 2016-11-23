@@ -59,7 +59,7 @@ if [[ "$CF_SOLO_OS" == "darwin"* ]]; then
   echo -e "remember to export the following, and configure your browser accordingly.${reset}"
   echo ''
   echo -e "${cyan}export http_proxy=localhost:3128${reset}"
-  echo -e "${cyan}export https_proxy=%{http_proxy}${reset}"
+  echo -e "${cyan}export https_proxy=\${http_proxy}${reset}"
 fi
 
 echo ''
