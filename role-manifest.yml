@@ -92,9 +92,9 @@ configuration:
     networks.default.dns_record_name: '"((DNS_RECORD_NAME))"'
     networks.default.ip: '"((IP_ADDRESS))"'
 
-    properties.hcf.monit.port: '2812'
-    properties.hcf.monit.user: 'admin'
-    properties.hcf.monit.password: 'monit'
+    properties.fissile.monit.port: '2812'
+    properties.fissile.monit.user: 'admin'
+    properties.fissile.monit.password: 'monit'
 
     properties.app_domains: '["((DOMAIN))"]'
     properties.domain: '"((DOMAIN))"'
