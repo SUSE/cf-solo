@@ -29,7 +29,7 @@ git submodule update --init  --recursive
 
 Run the following
 ```
-source ~/.fissilerc
+source ./.fissilerc
 make releases tools layers compile build
 ```
 
